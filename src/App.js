@@ -1,6 +1,10 @@
 import React from "react";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
+import { ThemeProvider } from "@material-ui/styles";
+import Header from "/Users/quietcalmrecords/School/Unit3/React-Todo/src/components/UI/Header.js";
+import theme from "/Users/quietcalmrecords/School/Unit3/React-Todo/src/components/UI/Theme.js";
+import "./components/Todo.css";
 
 const TodoData = [
 	{
@@ -15,40 +19,30 @@ const TodoData = [
 	},
 ];
 
+
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			TodoData,
 		};
-  }
-  
-  toggleTask = itemId => {
-    console.log(itemId);
-    // In the grocery array, find the item that was clicked
-    // (looking for the item with itemId)
-    // Toggle the purchased field on that item
-    // Return all other items untouched
-    this.setState({
-
-      TodoData: this.state.TodoData.map(item => {
-        if (itemId === item.id) {
-          return {
-            // return the item with purchased field toggled
-            ...item,
-            completed: !item.completed
-          };
-        }
-        return item;
-      })
-    });
-  };
-
-
+	}
+	toggleTask = (itemId) => {
+		this.setState({
+			TodoData: this.state.TodoData.map((item) => {
+				if (itemId === item.id) {
+					return {
+						...item,
+						completed: !item.completed,
+					};
+				}
+				return item;
+			}),
+		});
+	};
 	handleChanges = (event) => {
 		this.setState({ task: event.target.value });
 	};
-
 	submitTask = (event) => {
 		event.preventDefault();
 		this.setState({
@@ -64,29 +58,35 @@ class App extends React.Component {
 		this.setState({
 			task: "",
 		});
-  };
-  clearCompleted = event => {
-    event.preventDefault();
-    this.setState({
-      TodoData: this.state.TodoData.filter(item => !item.completed)
-    });
-  };
-
+	};
+	clearCompleted = (event) => {
+		event.preventDefault();
+		this.setState({
+			TodoData: this.state.TodoData.filter((item) => !item.completed),
+		});
+	};
 
 	render() {
 		return (
-			<div>
-				<h2>Welcome to your Todo App!</h2>
-				<div>
-          <TodoList todoList={this.state.TodoData} toggleTask={this.toggleTask} />
-					<TodoForm
-						// addTask={this.addTask}
-						submitTask={this.submitTask}
-            handleChanges={this.handleChanges}
-            clearCompleted={this.clearCompleted}
-					/>
+
+				<div className="background">
+					<ThemeProvider theme={theme}>
+						<Header></Header>
+					</ThemeProvider>
+					<div>
+						<TodoList
+							todoList={this.state.TodoData}
+							toggleTask={this.toggleTask}
+						/>
+						<TodoForm
+							// addTask={this.addTask}
+							submitTask={this.submitTask}
+							handleChanges={this.handleChanges}
+							clearCompleted={this.clearCompleted}
+						/>
+					</div>
 				</div>
-			</div>
+
 		);
 	}
 }

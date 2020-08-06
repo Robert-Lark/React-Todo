@@ -1,13 +1,16 @@
 .task {
-  background-color: blue;
-  width: 45%;
-  text-align: left;
-  margin: 4px 0;
-  padding-left: 8px;
+  background-color: null;
+  width: 75%;
+  text-align: center;
   cursor: pointer;
 }
 
 .task.completed {
-  background-color: grey;
+  background-color: beige;
+  border-radius: 20px;
   text-decoration: line-through;
+}
+.background {
+  background-color: antiquewhite;
+  height: 100vh;
 }
